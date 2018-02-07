@@ -37,7 +37,7 @@ class ContactSessionManager implements IModelManager {
     }
     public function get($index)
     {
-        // TODO: Implement get() method.
+        return $this->get($index);
     }
     public function getAll()
     {
@@ -53,9 +53,14 @@ class ContactSessionManager implements IModelManager {
     {
         // TODO: Implement select() method.
     }
-    public function update($object)
+    public function update($object,$values)
     {
-        // TODO: Implement update() method.
+        foreach ($values as $key=>$value){
+            $accesseur="set".$key;
+            if(method_exists($object,$accesseur)){
+                call_user_func([$object,$accesseur],[$value]);
+            }
+        }
     }
     public function deleteAll(){
         $contacts=array();

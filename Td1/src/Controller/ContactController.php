@@ -11,35 +11,43 @@ use Symfony\Component\HttpFoundation\Response;
 class ContactController extends Controller
 {
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contacts", name="contact")
      */
     public function index(ContactSessionManager $contactSessionManager)
     {
         $contactSessionManager->deleteAll();
-        $contactSessionManager->insert(new Contact("FRO","Ben"));
+        $contactSessionManager->insert(new Contact("Vitis","Julien"));
+        $contactSessionManager->insert(new Contact("Challe","Matthieu"));
         return $this->render('Contact/contact.html.twig', [ "contacts" =>$contactSessionManager->getAll()]);
     }
 
     /**
-     * @Route("/contact/new", name="new")
+     * @Route("/contact/new", name="contact_new")
      */
-    public function new(){
+    public function contactNew(){
 
-        return $this->render('@Contact/contact.new.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+        return $this->render('Contact/contact.new.html.twig', [ "contact" => new Contact() ]);
+    }
+
+    /**
+     * @Route("/contact/edit/{index}", name="contact_edit")
+     * @param $index
+     */
+    public function contactEdit($index,ContactSessionManager $cManager){
+
+        return $this->render('Contact/contact.new.html.twig', [ "contact" => $cManager->get($index) ]);
     }
     /**
-     * @Route("/contact/edit/1", name="edit1")
+     * @Route("/contact/update", name="contact_update",methods={"POST"})
      */
-    public function edit1(){
+    public function contactUpdate(Request $request,ContactSessionManager $cManager){
+        $index=$request->get("id");
+        $contact=$cManager->get($index);
+        if(isset($contact)){
+            $cManager->update($contact,$request->attribute);
+        }
 
-        return $this->render('@Contact/contact.edit1.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
-    }
-    /**
-     * @Route("/contact/update", name="update")
-     */
-    public function update(){
-
-        return $this->render('@Contact/contact.update.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+        return new Response("Update");
     }
 
     /**
@@ -54,7 +62,7 @@ class ContactController extends Controller
      */
     public function search(){
 
-        return $this->render('@Contact/contact.seach.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
+        return $this->render('@Contact/contact.search.html.twig', [ 'path' => str_replace($this->getParameter('kernel.project_dir').'/', '', __FILE__) ]);
     }
     /**
      * @Route("/contact/select", name="select")
