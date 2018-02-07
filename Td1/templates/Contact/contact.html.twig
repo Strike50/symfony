@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for contact in contacts %}
+        {{ contact.nom }}
+        {{ contact.prenom }}
+    {% endfor %}
+{% endblock %}
