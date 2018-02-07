@@ -37,7 +37,7 @@ class ContactSessionManager implements IModelManager {
     }
     public function get($index)
     {
-        return $this->get($index);
+        return $this->getAll()[$index-1];
     }
     public function getAll()
     {

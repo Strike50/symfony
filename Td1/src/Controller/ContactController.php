@@ -6,6 +6,7 @@ use App\Model\Contact;
 use App\Service\ContactSessionManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
@@ -35,7 +36,7 @@ class ContactController extends Controller
      */
     public function contactEdit($index,ContactSessionManager $cManager){
 
-        return $this->render('Contact/contact.new.html.twig', [ "contact" => $cManager->get($index) ]);
+        return $this->render('Contact/contact.new.html.twig', [ "contact" => $cManager->get($index),"index"=>$index ]);
     }
     /**
      * @Route("/contact/update", name="contact_update",methods={"POST"})
@@ -44,7 +45,7 @@ class ContactController extends Controller
         $index=$request->get("id");
         $contact=$cManager->get($index);
         if(isset($contact)){
-            $cManager->update($contact,$request->attribute);
+            $cManager->update($contact,$request->all());
         }
 
         return new Response("Update");
