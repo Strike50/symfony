@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <a href="{{ path("contact_new") }}">Ajouter</a><br/>
+    Liste des contacts : <br/>
+    <table class="ui table">
+        <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.nom }} {{ contact.prenom }}</td>
+                    <td>
+                        <a href="{{ path("contact_edit",{"index":loop.index}) }}" class="ui icon button xs">
+                            <i class="write icon"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block footer %}
+    Mentions légales : Tous droits réservés à <U>IUT de Caen</U>
+{%  endblock %}
+{% block titre %}
+    Titre du site
+{% endblock %}
+{% block title %}
+    Liste des contacts
+{% endblock %}

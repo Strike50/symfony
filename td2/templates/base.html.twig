@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="mika.png" />
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+        {% endblock %}
+    </head>
+    <body>
+        <div class="ui container">
+            <h2>{% block titre %}{% endblock %}</h2>
+            {% block menu %}{% endblock %}
+            {% block body %}{% endblock %}
+            {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.js"></script>
+            {% endblock %}
+        </div>
+    </body>
+    <footer>
+        {% block footer %}{% endblock %}
+    </footer>
+</html>
