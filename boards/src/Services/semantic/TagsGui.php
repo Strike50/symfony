@@ -12,6 +12,7 @@ use Ajax\semantic\html\base\constants\Color;
 use Ajax\semantic\html\elements\HtmlLabel;
 use App\Entity\Tag;
 
+
 class TagsGui extends JquerySemantic{
     public function dataTable($tags){
         $dt=$this->_semantic->dataTable("dtTags", "App\Entity\Tag", $tags);

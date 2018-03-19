@@ -1,12 +1,3 @@
-<div class="ui inverted segment">
-    <div class="ui inverted relaxed divided list">
-        {% for project in projects %}
-            <div class="item">
-                <div class="content">
-                    <div class="header">{{ project.name }}</div>
-                    {{ project.descriptif }}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+<div id="update-tag"></div>
+{{ q["dtProjects"] | raw }}
+{{ script_foot | raw }}

@@ -14,22 +14,20 @@ use App\Repository\ProjectRepository;
 
 class ProjectsController extends Controller
 {
-    public function __construct()
-    {
-    }
     /**
      * @Route("/index", name="index")
      */
     public function index(ProjectsGui $gui){
         $gui->buttons();
-        return $gui->renderView('Projects/index.html.twig');
+        return $gui->renderView('Projects\index.html.twig');
     }
 
     /**
      * @Route("/projects", name="projects")
      */
-    public function all(ProjectRepository $projectRepo){
+    public function all(ProjectsGui $gui,ProjectRepository $projectRepo){
         $projects=$projectRepo->findAll();
-        return $this->render('Projects/all.html.twig',["projects"=>$projects]);
+        $dt=$gui->dataTable($projects);
+        return $gui->renderView('Projects\all.html.twig');
     }
 }
